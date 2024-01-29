@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  </head>
+
+  <body>
+    <p>Click the button to modify an existing PDF document with <code>pdf-lib</code></p>
+    <button onclick="modifyPdf()">Modify PDF</button>
+    <p class="small">(Your browser will download the resulting file)</p>
+
+<div>
+    <div>
+        <label for="filePicker">Choose or drag a file:</label><br>
+        <input type="file" id="filePicker">
+    </div>
+    <br>
+    <div>
+        <h1>Base64 encoded version</h1>
+        <textarea id="base64textarea" 
+                  placeholder="Base64 will appear here" 
+                  cols="50" rows="15"></textarea>
+<input type="text" id="adjId">
+<input type="text" id="defaultPath">
+    </div>
+</div>
+  </body>
+
+  <script>
+
+var b64;
+var filename;
+var adj;
+var handleFileSelect = function(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+
+// alert(file.name.replace(/.pdf/g, ""));
+filename = file.name.replace(/.pdf/g, "");
+adj = prompt("Adjudikasi id", filename);
+document.getElementById("adjId").value = adj;
+
+    if (files && file) {
+        var reader = new FileReader();
+
+        reader.onload = function(readerEvt) {
+            var binaryString = readerEvt.target.result;
+            document.getElementById("base64textarea").value = btoa(binaryString);
+b64 = '' + btoa(binaryString);
+modifyPdf();
+        };
+
+        reader.readAsBinaryString(file);
+    }
+};
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    document.getElementById('filePicker')
+            .addEventListener('change', handleFileSelect, false);
+} else {
+    alert('The File APIs are not fully supported in this browser.');
+}
+
+
+
+
+
+    const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+    async function modifyPdf() {
+      // Fetch an existing PDF document
+      const url = 'file:///C:/dev/artifact/fy/scan-ricoh/stamp/FYFH24-0006-T01E305786XJ002.pdf'
+  		//const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+      // Load a PDFDocument from the existing PDF bytes
+      //const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+const base64 = '';
+
+const dataUri = 'data:application/pdf;base64,' + b64 // base64
+
+//const pdfDoc2 = await PDFDocument.load(b64) // base64)
+const pdfDoc = await PDFDocument.load(dataUri)
+
+
+      // Embed the Helvetica font
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+      // Get the first page of the document
+      const pages = pdfDoc.getPages()
+      const firstPage = pages[0]
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize()
+
+      // Draw a string of text diagonally across the first page
+      /*
+firstPage.drawText('FYFH/24-0006-T01E305786XJ002', {
+        x: 5,
+        y: height / 2 + 300,
+        size: 50,
+        font: helveticaFont,
+        color: rgb(0.95, 0.1, 0.1),
+        rotate: degrees(-45),
+      })
+*/
+
+  const fontSize = 16;
+const x = 50;
+  const y = height - 45;
+
+//  const font = await pdfDoc.embedFont(PDFDocument.Font.Helvetica);
+
+firstPage.drawText(adj, {
+    x: 50,
+    y: height - 40,
+    font: helveticaFont,
+    size: 12,
+    color: rgb(0, 0, 0), // Black color
+  });
+
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      const pdfBytes = await pdfDoc.save()
+
+			// Trigger the browser to download the PDF document
+      download(pdfBytes, filename+"-.pdf", "application/pdf");
+    }
+  </script>
+</html>
