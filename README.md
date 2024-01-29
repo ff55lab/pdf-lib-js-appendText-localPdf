@@ -5,3 +5,6 @@ Save it with custom file name.
 
 # Step
 Run [pdf-lib-js-appendText-localPdf.htm](https://github.com/ff55lab/pdf-lib-js-appendText-localPdf/blob/main/pdf-lib-js-appendText-localPdf.htm) file.
+
+# Repository
+Based on [pdf-lib.js](https://github.com/Hopding/pdf-lib).
