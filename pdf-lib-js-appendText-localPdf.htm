@@ -11,8 +11,14 @@
                 var files = evt.target.files;
                 var file = files[0];
 
-                document.getElementById("pdfFilename").value = file.name.replace(/.pdf/g, "") + "-.pdf";
-                document.getElementById("pdfText").value = file.name.replace(/.pdf/g, "");
+                var textFind = document.getElementById("pdfFilenameFind").value;
+                var textReplace = document.getElementById("pdfFilenameReplace").value;
+
+                var fileName = file.name.replace(/.pdf/g, "");
+                var textName = fileName.replace(textFind, textReplace);
+
+                document.getElementById("pdfFilename").value = fileName + "-.pdf";
+                document.getElementById("pdfText").value = textName;
 
                 if (files && file) {
                     var reader = new FileReader();
@@ -30,6 +36,14 @@
     </head>
 
     <body>
+        <div>
+            <label for="pdfFilenameFind">Find text</label><br>
+            <input type="text" id="pdfFilenameFind" size="60" value="24-">
+        </div>
+        <div>
+            <label for="pdfFilenameReplace">Replace text</label><br>
+            <input type="text" id="pdfFilenameReplace" size="60" value="/24-">
+        </div>
         <div>
             <label for="pdfPicker">Choose or drag a file:</label><br>
             <input type="file" id="pdfPicker">
