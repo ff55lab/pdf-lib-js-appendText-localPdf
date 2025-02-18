@@ -32,44 +32,460 @@
                 }
             };
 
+            function handlePdf(files, file, eTextFind, eTextReplace, ePdfFilename, ePdfText, ePdfBase64) {
+                var textFind = eTextFind.value;
+                var textReplace = eTextReplace.value;
+
+                var fileName = file.name.replace(/.pdf/g, "");
+                var textName = fileName.replace(textFind, textReplace);
+
+                ePdfFilename.value = fileName + "-.pdf";
+                ePdfText.value = textName;
+
+                if (files && file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (readerEvt) {
+                        var binaryString = readerEvt.target.result;
+                        ePdfBase64.value = btoa(binaryString);
+                    };
+
+                    reader.readAsBinaryString(file);
+                }
+            }
+
+            function preHandlePdf(evt, controlId) {
+                var files = evt.target.files;
+                var file = files[0];
+                var eTextFind = document.getElementById("pdfFilenameFind" + controlId);
+                var eTextReplace = document.getElementById("pdfFilenameReplace" + controlId);
+                var ePdfFilename = document.getElementById("pdfFilename" + controlId);
+                var ePdfText = document.getElementById("pdfText" + controlId);
+                var ePdfBase64 = document.getElementById("pdfBase64" + controlId);
+                handlePdf(files, file, eTextFind, eTextReplace, ePdfFilename, ePdfText, ePdfBase64);
+            };
+
+            var handlePdfSelect1 = function (evt) { preHandlePdf(evt, ""); };
+            var handlePdfSelect2 = function (evt) { preHandlePdf(evt, "2"); };
+            var handlePdfSelect3 = function (evt) { preHandlePdf(evt, "3"); };
+            var handlePdfSelect4 = function (evt) { preHandlePdf(evt, "4"); };
+            var handlePdfSelect5 = function (evt) { preHandlePdf(evt, "5"); };
+            var handlePdfSelect6 = function (evt) { preHandlePdf(evt, "6"); };
+            var handlePdfSelect7 = function (evt) { preHandlePdf(evt, "7"); };
+            var handlePdfSelect8 = function (evt) { preHandlePdf(evt, "8"); };
+            var handlePdfSelect9 = function (evt) { preHandlePdf(evt, "9"); };
+            var handlePdfSelect10 = function (evt) { preHandlePdf(evt, "10"); };
+
         </script>
     </head>
 
     <body>
-        <div>
-            <label for="pdfFilenameFind">Find text</label><br>
-            <input type="text" id="pdfFilenameFind" size="60" value="24-">
-        </div>
-        <div>
-            <label for="pdfFilenameReplace">Replace text</label><br>
-            <input type="text" id="pdfFilenameReplace" size="60" value="/24-">
-        </div>
-        <div>
-            <label for="pdfPicker">Choose or drag a file:</label><br>
-            <input type="file" id="pdfPicker">
-        </div>
-        <div>
-            <label for="pdfFilename">New file name</label><br>
-            <input type="text" id="pdfFilename" size="60">
-        </div>
-        <div>
-            <label for="pdfText">Custom text</label><br>
-            <input type="text" id="pdfText" size="60">
-        </div>
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <label for="pdfPicker">Choose or drag a file:</label><br>
+                        <input type="file" id="pdfPicker">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="pdfFilenameFind">Find text</label><br>
+                        <input type="text" id="pdfFilenameFind" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="pdfFilenameReplace">Replace text</label><br>
+                        <input type="text" id="pdfFilenameReplace" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="pdfFilename">New file name</label><br>
+                        <input type="text" id="pdfFilename" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="pdfText">Custom text</label><br>
+                        <input type="text" id="pdfText" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <label for="pdfBase64">Base64 file</label><br>
+                        <input type="text" id="pdfBase64" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker2">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind2" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace2" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename2" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText2" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase642" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker3">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind3" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace3" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename3" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText3" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase643" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker4">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind4" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace4" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename4" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText4" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase644" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker5">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind5" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace5" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename5" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText5" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase645" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker6">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind6" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace6" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename6" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText6" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase646" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker7">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind7" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace7" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename7" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText7" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase647" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker8">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind8" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace8" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename8" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText8" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase648" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker9">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind9" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace9" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename9" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText9" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase649" size="5">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="file" id="pdfPicker10">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameFind10" size="5" value="25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilenameReplace10" size="5" value="/25-">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfFilename10" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfText10" size="30">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="text" id="pdfBase6410" size="5">
+                    </div>
+                </td>
+            </tr>
+        </table>
 
         <p>Click the button to add custom text on the existing PDF document with <code>pdf-lib</code></p>
-        <button onclick="appendTextPdf()">Modify PDF</button>
+        <button onclick="appendTextPdfs()">Modify PDF</button>
 
         <script>
 
             if (window.File && window.FileReader && window.FileList && window.Blob) {
-                document.getElementById('pdfPicker')
-                    .addEventListener('change', handlePdfSelect, false);
+                document.getElementById('pdfPicker').addEventListener('change', handlePdfSelect1, false);
+                document.getElementById('pdfPicker2').addEventListener('change', handlePdfSelect2, false);
+                document.getElementById('pdfPicker3').addEventListener('change', handlePdfSelect3, false);
+                document.getElementById('pdfPicker4').addEventListener('change', handlePdfSelect4, false);
+                document.getElementById('pdfPicker5').addEventListener('change', handlePdfSelect5, false);
+                document.getElementById('pdfPicker6').addEventListener('change', handlePdfSelect6, false);
+                document.getElementById('pdfPicker7').addEventListener('change', handlePdfSelect7, false);
+                document.getElementById('pdfPicker8').addEventListener('change', handlePdfSelect8, false);
+                document.getElementById('pdfPicker9').addEventListener('change', handlePdfSelect9, false);
+                document.getElementById('pdfPicker10').addEventListener('change', handlePdfSelect10, false);
             } else {
                 alert('The File APIs are not fully supported in this browser.');
             }
 
             const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+            async function appendTextOnePdf(ePdfFilename, ePdfText, ePdfBase64) {
+                if (ePdfFilename.value == null || ePdfFilename.value == '' ||
+                    ePdfText.value == null || ePdfText.value == '' ||
+                    ePdfBase64.value == null || ePdfBase64.value == '') {
+                    return;
+                }
+
+                const dataUri = 'data:application/pdf;base64,' + ePdfBase64.value;
+
+                const pdfDoc = await PDFDocument.load(dataUri)
+
+                // Embed the Helvetica font
+                const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+                // Get the first page of the document
+                const pages = pdfDoc.getPages()
+                const firstPage = pages[0]
+
+                // Get the width and height of the first page
+                const { width, height } = firstPage.getSize()
+
+                firstPage.drawText(ePdfText.value, {
+                    x: 50,
+                    y: height - 40,
+                    font: helveticaFont,
+                    size: 12,
+                    color: rgb(0, 0, 0), // Black color
+                });
+
+                // Serialize the PDFDocument to bytes (a Uint8Array)
+                const pdfBytes = await pdfDoc.save()
+
+                // Trigger the browser to download the PDF document
+                download(pdfBytes, ePdfFilename.value, "application/pdf");
+            }
+
+            async function preAppendTextOnePdf(controlId) {
+                ePdfFilename = document.getElementById("pdfFilename" + controlId);
+                ePdfText = document.getElementById("pdfText" + controlId);
+                ePdfBase64 = document.getElementById("pdfBase64" + controlId);
+                appendTextOnePdf(ePdfFilename, ePdfText, ePdfBase64)
+            }
+
+            async function appendTextPdfs() {
+                preAppendTextOnePdf("");
+                preAppendTextOnePdf("2");
+                preAppendTextOnePdf("3");
+                preAppendTextOnePdf("4");
+                preAppendTextOnePdf("5");
+                preAppendTextOnePdf("6");
+                preAppendTextOnePdf("7");
+                preAppendTextOnePdf("8");
+                preAppendTextOnePdf("9");
+                preAppendTextOnePdf("10");
+            }
 
             async function appendTextPdf() {
                 const dataUri = 'data:application/pdf;base64,' + pdfBase64;
