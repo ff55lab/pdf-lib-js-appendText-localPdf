@@ -6,32 +6,6 @@
 
         <script>
 
-            var pdfBase64;
-            var handlePdfSelect = function (evt) {
-                var files = evt.target.files;
-                var file = files[0];
-
-                var textFind = document.getElementById("pdfFilenameFind").value;
-                var textReplace = document.getElementById("pdfFilenameReplace").value;
-
-                var fileName = file.name.replace(/.pdf/g, "");
-                var textName = fileName.replace(textFind, textReplace);
-
-                document.getElementById("pdfFilename").value = fileName + "-.pdf";
-                document.getElementById("pdfText").value = textName;
-
-                if (files && file) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (readerEvt) {
-                        var binaryString = readerEvt.target.result;
-                        pdfBase64 = btoa(binaryString);
-                    };
-
-                    reader.readAsBinaryString(file);
-                }
-            };
-
             function handlePdf(files, file, eTextFind, eTextReplace, ePdfFilename, ePdfText, ePdfBase64) {
                 var textFind = eTextFind.value;
                 var textReplace = eTextReplace.value;
@@ -487,35 +461,6 @@
                 preAppendTextOnePdf("10");
             }
 
-            async function appendTextPdf() {
-                const dataUri = 'data:application/pdf;base64,' + pdfBase64;
-
-                const pdfDoc = await PDFDocument.load(dataUri)
-
-                // Embed the Helvetica font
-                const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-                // Get the first page of the document
-                const pages = pdfDoc.getPages()
-                const firstPage = pages[0]
-
-                // Get the width and height of the first page
-                const { width, height } = firstPage.getSize()
-
-                firstPage.drawText(document.getElementById("pdfText").value, {
-                    x: 50,
-                    y: height - 40,
-                    font: helveticaFont,
-                    size: 12,
-                    color: rgb(0, 0, 0), // Black color
-                });
-
-                // Serialize the PDFDocument to bytes (a Uint8Array)
-                const pdfBytes = await pdfDoc.save()
-
-                // Trigger the browser to download the PDF document
-                download(pdfBytes, document.getElementById("pdfFilename").value, "application/pdf");
-            }
         </script>
 
     </body>
